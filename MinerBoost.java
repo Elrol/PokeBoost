@@ -15,7 +15,6 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
-import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
@@ -181,14 +180,14 @@ public class MinerBoost {
     
 	public static void registerCurrencies() {
 		Optional<EconomyService> economyService = Sponge.getServiceManager().provide(EconomyService.class);
-	    if(!economyService.isPresent() && !economyService.get().getCurrencies().contains(EventPointUtils.getEventPoints())) {
-			Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "currency create " + PluginInfo.epSingular.toPlain() + " " + PluginInfo.epPlural.toPlain() + " " + PluginInfo.epSymbol.toPlain());
-			System.out.print("EventPoint currency added");
-		} else {
-			System.out.print("EventPoint currency, already exists");
-		}
-	    
-	    if(!economyService.isPresent() && !economyService.get().getCurrencies().contains(BattlePointUtils.getBattlePoints())) {
+if(economyService.isPresent() && !economyService.get().getCurrencies().contains(EventPointUtils.getEventPoints())) {
+	Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "currency create " + PluginInfo.epSingular.toPlain() + " " + PluginInfo.epPlural.toPlain() + " " + PluginInfo.epSymbol.toPlain());
+	System.out.print("EventPoint currency added");
+} else {
+	System.out.print("EventPoint currency, already exists");
+}
+
+	    if(economyService.isPresent() && !economyService.get().getCurrencies().contains(BattlePointUtils.getBattlePoints())) {
 			Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "currency create " + PluginInfo.bpSingular.toPlain() + " " + PluginInfo.bpPlural.toPlain() + " " + PluginInfo.bpSymbol.toPlain());
 			System.out.print("BattlePoint currecny added");
 		} else {
